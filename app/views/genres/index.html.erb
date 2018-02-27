@@ -1,0 +1,11 @@
+<h1>All Genres</h1>
+
+<ul>
+  <% @genres.uniq.each do |g| %>
+    <li>
+      <div id ="genrename">
+      <%= g.name %>
+    </div>
+    </li>
+  <% end %>
+</ul>
