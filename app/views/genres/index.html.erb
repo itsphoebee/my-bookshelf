@@ -4,8 +4,9 @@
   <% @genres.uniq.each do |g| %>
     <li>
       <div id ="genrename">
-      <%= g.name %>
-    </div>
+        <%= g.name %>
+      </div>
+    Total Number of Books in Genre: <%= g.books.count %>
     </li>
   <% end %>
 </ul>
