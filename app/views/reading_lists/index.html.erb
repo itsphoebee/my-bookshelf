@@ -1,0 +1,12 @@
+<h1>All Created Reading Lists</h1>
+
+<ul>
+  <% @authors.each do |a| %>
+    <li>
+      <div id ="authorname">
+      <%= a.name %>
+    </div>
+    Total Number of Books Published: <%= a.books.count %>
+  </li>
+  <% end %>
+</ul>
