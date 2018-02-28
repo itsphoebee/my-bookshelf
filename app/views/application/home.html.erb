@@ -2,7 +2,7 @@
 
 <% if current_user.reading_lists.empty? %>
   <h2>You have no reading lists created!</h2>
-  <p> Create one here! <p>
+  <p> Create one <%= link_to 'here', new_reading_list_path %>! <p>
 <% else %>
   <h2>Your Reading Lists</h2>
   <ol>
@@ -10,6 +10,5 @@
       <li><%= link_to list.name, reading_list_path(list) %> </li>
     <% end %>
   </ol>
+  <p> Create a <%= link_to 'new', new_reading_list_path %> list!</p>
 <% end %>
-
-<p> Create a <%= link_to 'new', new_reading_list_path %> list!</p>
