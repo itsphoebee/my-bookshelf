@@ -7,9 +7,9 @@
   <h2>Your Reading Lists</h2>
   <ol>
     <% current_user.reading_lists.each do |list| %>
-      <li><%= list.name %> </li>
+      <li><%= link_to list.name, reading_list_path(list) %> </li>
     <% end %>
   </ol>
 <% end %>
 
-<p> Create a new list!</p>
+<p> Create a <%= link_to 'new', new_reading_list_path %> list!</p>
