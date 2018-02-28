@@ -1,8 +1,8 @@
-<h1> <%= @readinglist.name %> </h1>
-<%= link_to 'Add to List', edit_reading_list_path(@readinglist), class: "btn btn-primary"%>
+<h1> <%= @reading_list.name %> </h1>
+<%= link_to 'Add to List', edit_user_reading_list_path(@reading_list), class: "btn btn-primary"%>
 
 <ol>
-  <% @readinglist.books.each do |b| %>
+  <% @reading_list.books.each do |b| %>
     <li> <%= link_to b.title, book_path(b) %> </li>
   <% end %>
 </ol>

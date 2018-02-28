@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   root 'application#home'
 
-  resources :reading_lists, only: [:index, :show, :new, :create, :edit, :update]
+  resources :reading_lists, only: [:index, :show, :create]
   resources :books, only: [:index, :show, :new, :create, :edit, :update]
   resources :genres, only: [:index, :show, :new, :create, :edit, :update]
   resources :authors, only: [:index, :show, :new, :create, :edit, :update]
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
   # nested resource for reading_lists
-    resources :reading_lists, only: [:show]
+    resources :reading_lists
   end
 
 

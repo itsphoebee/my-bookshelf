@@ -1,7 +1,7 @@
 <h1>All Created Reading Lists</h1>
 
 <ul>
-  <% @readinglists.each do |list| %>
+  <% @reading_lists.each do |list| %>
     <li>
       <div id ="listname">
       <%= link_to list.name, reading_list_path(list) %>
