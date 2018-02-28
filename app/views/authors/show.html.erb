@@ -1,9 +1,14 @@
 <h1> <%= @author.name%></h1>
-<h3> by <%=link_to @book.author.name, author_path(@book.author) %> | Published <%=@book.publication_year%></h3>
-<h4>Summary</h4>
-<%= @book.blurb %>
+<h3> Books by <%= @author.name%></h3>
+
+<ol>
+  <% @author.books.each do |b| %>
+    <li><%= link_to b.title, book_path(b) %> | <%=b.publication_year%></li>
+  <% end %>
+</ol>
 
 <h4>Affiliated Genres: <% @author.genres.each do |g| %>
                           <%= link_to g.name, genre_path(g) %>
                         <% end %>
 </h4>
+<%= link_to 'Edit Author', edit_author_path(@author), class: "btn btn-primary"%>
