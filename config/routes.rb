@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :genres, only: [:index, :show, :new, :create, :edit, :update]
   resources :authors, only: [:index, :show, :new, :create, :edit, :update]
 
+  resources :books, only:[:show] do
+    resources :reading_lists, only:[:new, :create, :edit, :update]
+  end
 
   resources :users, only: [:show] do
   # nested resource for reading_lists
