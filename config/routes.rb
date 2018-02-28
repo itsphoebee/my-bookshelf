@@ -4,12 +4,16 @@ Rails.application.routes.draw do
   root 'application#home'
 
   resources :reading_lists, only: [:index, :show, :new, :create, :edit, :update]
-  resources :books, only: [:index, :show, :edit, :update]
+  resources :books, only: [:index, :show, :new, :create, :edit, :update]
   resources :genres, only: [:index, :show, :new, :create, :edit, :update]
   resources :authors, only: [:index, :show, :new, :create, :edit, :update]
 
   resources :authors do
-    resources :books, only: [:new, :create]
+    resources :books
+  end
+
+  resources :books do
+    resources :authors
   end
 
   resources :books, only:[:show] do
