@@ -1,4 +1,5 @@
 <h1>All Genres</h1>
+<%= link_to 'New Genre', new_genre_path, class: "btn btn-primary"%>
 
 <ul>
   <% @genres.uniq.each do |g| %>
@@ -10,5 +11,3 @@
     </li>
   <% end %>
 </ul>
-
-<%= link_to 'Create a New Genre', new_genre_path, class: "btn btn-primary"%>

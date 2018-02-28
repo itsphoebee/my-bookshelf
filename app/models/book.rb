@@ -6,12 +6,5 @@ class Book < ApplicationRecord
 
   validates :title, presence: true
   validates :title, uniqueness: {scope: :author_id}
-
-  def genre_name=(name)
-    self.genre = Genre.find_by(name:name)
-  end
-
-  def genre_name
-    self.genre.name
-  end
+  
 end

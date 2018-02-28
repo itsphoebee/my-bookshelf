@@ -12,10 +12,6 @@ Rails.application.routes.draw do
     resources :books
   end
 
-  resources :books do
-    resources :authors
-  end
-
   resources :books, only:[:show] do
     resources :reading_lists, only:[:new, :create, :edit, :update]
   end

@@ -4,5 +4,5 @@ class ReadingList < ApplicationRecord
   has_many :books, through: :list_books
 
   validates :name, presence: true
-  validates :name, uniqueness: true
+  validates :name, uniqueness: {scope: :user_id}
 end
