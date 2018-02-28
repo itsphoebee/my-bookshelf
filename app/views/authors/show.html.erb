@@ -1,0 +1,9 @@
+<h1> <%= @author.name%></h1>
+<h3> by <%=link_to @book.author.name, author_path(@book.author) %> | Published <%=@book.publication_year%></h3>
+<h4>Summary</h4>
+<%= @book.blurb %>
+
+<h4>Affiliated Genres: <% @author.genres.each do |g| %>
+                          <%= link_to g.name, genre_path(g) %>
+                        <% end %>
+</h4>

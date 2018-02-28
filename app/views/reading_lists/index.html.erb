@@ -4,9 +4,9 @@
   <% @readinglists.each do |list| %>
     <li>
       <div id ="listname">
-      <%= list.name %>
+      <%= link_to list.name, reading_list_path(list) %>
     </div>
-    
+
   </li>
   <% end %>
 </ul>

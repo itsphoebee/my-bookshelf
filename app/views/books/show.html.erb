@@ -1,6 +1,6 @@
 <h1> <%= @book.title %></h1>
 <h3> by <%=link_to @book.author.name, author_path(@book.author) %> | Published <%=@book.publication_year%></h3>
-<h4>Summary</h4>
+<h4>Summary:</h4>
 <%= @book.blurb %>
 
 <h4>Affiliated Genre: <%= link_to @book.genre.name, genre_path(@book.genre) %></h4>

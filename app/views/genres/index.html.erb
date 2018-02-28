@@ -4,7 +4,7 @@
   <% @genres.uniq.each do |g| %>
     <li>
       <div id ="genrename">
-        <%= g.name %>
+        <%= link_to g.name, genre_path(g) %>
       </div>
     Total Number of Books in Genre: <%= g.books.count %>
     </li>
