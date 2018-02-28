@@ -26,6 +26,7 @@ class ReadingListsController < ApplicationController
 
   def update
     @reading_list = ReadingList.find(params[:id])
+    binding.pry
     if @reading_list.update(reading_list_params)
       redirect_to reading_list_params(@reading_list)
     else
@@ -36,7 +37,7 @@ class ReadingListsController < ApplicationController
   private
 
   def reading_list_params
-    params.require(:reading_list).permit(:name, :user_id)
+    params.require(:reading_list).permit(:name, :user_id, :book_ids[])
   end
 
 end
