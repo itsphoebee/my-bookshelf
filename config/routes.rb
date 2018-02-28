@@ -3,11 +3,14 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   root 'application#home'
 
-
   resources :reading_lists, only: [:index, :show, :new, :create, :edit, :update]
-  resources :books, only: [:index, :show, :new, :create, :edit, :update]
+  resources :books, only: [:index, :show, :edit, :update]
   resources :genres, only: [:index, :show, :new, :create, :edit, :update]
   resources :authors, only: [:index, :show, :new, :create, :edit, :update]
+
+  resources :authors do
+    resources :books, only: [:new, :create]
+  end
 
   resources :books, only:[:show] do
     resources :reading_lists, only:[:new, :create, :edit, :update]

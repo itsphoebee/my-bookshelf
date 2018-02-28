@@ -1,7 +1,11 @@
 <h1> <%= @genre.name %> Novels</h1>
 
+<p> <%= @genre.description %> </p>
+
 <ol>
   <% @genre.books.each do |b| %>
     <li> <%= link_to b.title, book_path(b) %> </li>
   <% end %>
 </ol>
+
+<%= link_to 'Edit Genre', edit_genre_path(@genre), class: "btn btn-primary"%>
