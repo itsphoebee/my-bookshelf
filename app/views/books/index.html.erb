@@ -4,7 +4,7 @@
   <% @books.each do |b| %>
     <li>
       <div id ="booktitle">
-      <%= b.title %>
+      <%= link_to b.title, book_path(b) %>
     </div>
     by <%= b.author.name %></li>
   <% end %>
