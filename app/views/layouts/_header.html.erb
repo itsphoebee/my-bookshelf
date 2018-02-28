@@ -2,6 +2,9 @@
   <%= link_to "Home", root_path %> |
   <% if !!current_user %>
     Welcome, <%= current_user.email %> |
+    <%= link_to "Authors", authors_path %> |
+    <%= link_to "Books", books_path %> |
+    <%= link_to "Lists", reading_lists_path %> |
     <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
   <% else %>
     <%= link_to "Sign in", new_user_session_path %> |

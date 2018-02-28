@@ -1,5 +1,5 @@
 class ReadingListsController < ApplicationController
   def index
-    @readinglists = Reading_List.all
+    @readinglists = ReadingList.all
   end
 end

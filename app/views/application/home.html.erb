@@ -1,4 +1,15 @@
-<h1>My Bookshelf</h1>
+<h1>Hello, <%= current_user.email %>! </h1>
 
-<h3>Keep track of all your favorite novels through lists</h3>
-<h3>Or decide what to read next from your favorite authors!</h3>
+<% if current_user.reading_lists.empty? %>
+  <h2>You have no reading lists created!</h2>
+  <p> Create one here! <p>
+<% else %>
+  <h2>Your Reading Lists</h2>
+  <ol>
+    <% current_user.reading_lists.each do |list| %>
+      <li><%= list.name %> </li>
+    <% end %>
+  </ol>
+<% end %>
+
+<p> Create a new list!</p>
