@@ -30,7 +30,7 @@ class ReadingListsController < ApplicationController
 
   def update
     @reading_list = ReadingList.find(params[:id])
-    if @reading_list.update_attributes!(reading_list_params)
+    if @reading_list.update(reading_list_params)
       redirect_to reading_list_params(@reading_list)
     else
       render :edit
@@ -46,7 +46,7 @@ class ReadingListsController < ApplicationController
   private
 
   def reading_list_params
-    params.require(:reading_list).permit(:name, :user_id, book_ids:[])
+    params.require(:reading_list).permit(:name, :user_id, :book_ids => [])
   end
 
 end

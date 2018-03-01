@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   root 'application#home'
 
-  resources :books, only: [:index, :show, :new, :create, :edit, :update]
-  resources :genres, only: [:index, :show, :new, :create, :edit, :update]
-  resources :authors, only: [:index, :show, :new, :create, :edit, :update]
+  resources :books
+  resources :genres
+  resources :authors
 
   # nested resource for books
   resources :authors do

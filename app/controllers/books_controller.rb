@@ -1,5 +1,6 @@
 require 'pry'
 class BooksController < ApplicationController
+  before_action :find_book, only: [:show, :edit, :update]
   def index
     @books = Book.all
   end
@@ -18,15 +19,12 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.find(params[:id])
   end
 
   def edit
-    @book= Book.find(params[:id])
   end
 
   def update
-    @book= Book.find(params[:id])
     if @book.update(book_params)
       redirect_to book_path(@book)
     else
@@ -35,6 +33,10 @@ class BooksController < ApplicationController
   end
 
   private
+
+  def find_book
+    @book= Book.find(params[:id])
+  end
 
   def book_params
     params.require(:book).permit(:title, :publication_year, :genre_id, :blurb, :author_id)

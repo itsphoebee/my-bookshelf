@@ -1,2 +1,29 @@
 <h1>Create a New Author</h1>
-<%= render partial: "form", locals: {author: @author} %>
+<%= form_for @author do |f| %>
+  <%= f.label :name %>:<br>
+  <%= f.text_field :name %> <br>
+
+  <h3>Author's Books</h3>
+
+  <% 3.times.each do %>
+
+    New Book:
+    <%= f.fields_for :books, author.books.build do |b| %>
+      <%= b.label :title %><br>
+      <%= b.text_field :title %><br>
+
+      <%= b.label :publication_year %><br>
+      <%= b.text_field :publication_year %><br>
+
+      <%= b.label :blurb %><br>
+      <%= b.text_field :blurb %><br>
+
+      <%= b.label :genre_id %>:<br>
+      <%= b.collection_select :genre_id, Genre.all, :id, :name %><br></br>
+    <% end %>
+
+  <% end %>
+
+  <%= f.submit%>
+<% end %>
+<br></br>
