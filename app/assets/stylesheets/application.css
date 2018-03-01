@@ -17,7 +17,7 @@
 html, body {
     height: 100%;
     background-color: #fffaf0;
-}
+    }
 
 a:link {
   color: #1B6453
@@ -28,12 +28,13 @@ a:visited {
 }
 
  #header {
+  text-align: center;
  	background: #8FBC8F;
  	border-bottom: solid 3px #aba;
  	border-left: solid 0px #9a9;
  	border-right: solid 1px #565;
  	border-top: solid 1px #9a9;
- 	letter-spacing: 0.2em;
+ 	letter-spacing: 0.3em;
  	padding: 10px 1px 10px 40px;
   width: 100%;
  }
@@ -47,7 +48,7 @@ a:visited {
   border-left: solid 0px #9a9;
   border-right: solid 1px #565;
   border-top: solid 1px #9a9;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.3em;
   padding: 10px 10px 10px 40px;
 }
 

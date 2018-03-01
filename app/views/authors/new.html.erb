@@ -8,7 +8,7 @@
   <% 3.times.each do %>
 
     New Book:
-    <%= f.fields_for :books, author.books.build do |b| %>
+    <%= f.fields_for :books, @author.books.build do |b| %>
       <%= b.label :title %><br>
       <%= b.text_field :title %><br>
 

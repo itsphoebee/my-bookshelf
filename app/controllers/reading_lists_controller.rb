@@ -1,5 +1,6 @@
 require 'pry'
 class ReadingListsController < ApplicationController
+  before_action :find_list, only: [:show, :edit, :update, :destroy]
   def index
     if params[:user_id] && @user = User.find_by_id(params[:user_id])
       @reading_lists = User.find_by_id(params[:user_id]).reading_lists
@@ -16,20 +17,18 @@ class ReadingListsController < ApplicationController
     @reading_list = ReadingList.new(reading_list_params)
     if @reading_list.save
        redirect_to reading_list_path(@reading_list)
-    else render :new
+    else
+      render :new
     end
   end
 
   def show
-    @reading_list = ReadingList.find(params[:id])
   end
 
   def edit
-    @reading_list = ReadingList.find(params[:id])
   end
 
   def update
-    @reading_list = ReadingList.find(params[:id])
     if @reading_list.update(reading_list_params)
       redirect_to reading_list_params(@reading_list)
     else
@@ -38,12 +37,15 @@ class ReadingListsController < ApplicationController
   end
 
   def destroy
-    @reading_list = ReadingList.find(params[:id])
     @reading_list.destroy
     redirect_to root_path
   end
 
   private
+
+  def find_list
+    @reading_list = ReadingList.find(params[:id])
+  end
 
   def reading_list_params
     params.require(:reading_list).permit(:name, :user_id, :book_ids => [])
