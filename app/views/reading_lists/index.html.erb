@@ -4,6 +4,9 @@
   <% end %>
 </h1>
 
+<%= link_to 'New List', new_user_reading_list_path(current_user), class: "btn btn-primary"%>
+
+
 <ul>
   <% @reading_lists.each do |list| %>
     <li>

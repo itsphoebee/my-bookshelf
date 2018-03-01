@@ -30,12 +30,17 @@ class ReadingListsController < ApplicationController
 
   def update
     @reading_list = ReadingList.find(params[:id])
-    #binding.pry
-    if @reading_list.update(reading_list_params)
+    if @reading_list.update_attributes!(reading_list_params)
       redirect_to reading_list_params(@reading_list)
     else
       render :edit
     end
+  end
+
+  def destroy
+    @reading_list = ReadingList.find(params[:id])
+    @reading_list.destroy
+    redirect_to root_path
   end
 
   private

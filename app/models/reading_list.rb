@@ -9,9 +9,10 @@ class ReadingList < ApplicationRecord
 
   def book_ids=(ids)
     ids.each do |id|
-      book = Book.find_by(id)
-      if !self.books.include?(book)
-      self.books << book
+      book = Book.where('id = ?' , id)
+      if book.present? && !self.books.include?(book)
+        #binding.pry
+        self.books << book
       end
     end
   end

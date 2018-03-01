@@ -1,3 +1,14 @@
 <h1>Create a New List</h1>
 
-<%= render partial: "form", locals: {reading_list: @reading_list} %>
+<%= form_for @reading_list do |f| %>
+  <%= f.label :name %>:<br>
+  <%= f.text_field :name %> <br></br>
+
+  <%= f.hidden_field :user_id, value: params[:user_id] %>
+
+  <%= f.collection_check_boxes :book_ids, Book.all, :id, :title %><br></br>
+
+  <%= f.submit%>
+<% end %>
+
+<br></br>
