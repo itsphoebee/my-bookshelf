@@ -1,12 +1,18 @@
-<h1>All Created Reading Lists</h1>
+<h1>All Created Reading Lists
+  <% if params[:user_id] %>
+    by <%= User.find_by_id(params[:user_id]).email %>
+  <% end %>
+</h1>
 
 <ul>
   <% @reading_lists.each do |list| %>
     <li>
       <div id ="listname">
       <%= link_to list.name, reading_list_path(list) %>
-    </div>
-
-  </li>
+      <% if params[:user_id].nil? %>
+        | Created by <%= link_to list.user.email, user_path(list.user) %>
+      <% end %>
+      </div>
+    </li>
   <% end %>
 </ul>

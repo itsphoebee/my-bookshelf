@@ -3,7 +3,7 @@
 <h2>Profile</h2>
 <p>Joined on: <%=@user.created_at.strftime("%B %d, %Y")%></p>
 
-<h3> <%= @user.email %>'s Reading Lists </h3>
+<h3> <%=@user.email %>'s <%= link_to 'Reading Lists', user_reading_lists_path(@user)%> </h3>
 <ol>
   <% @user.reading_lists.each do |list| %>
     <li><%= link_to list.name, reading_list_path(list) %> </li>

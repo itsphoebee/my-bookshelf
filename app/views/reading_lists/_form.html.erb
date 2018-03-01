@@ -4,7 +4,7 @@
 
   <%= f.hidden_field :user_id, value: params[:user_id] %>
 
-  <%= f.collection_select(:book_ids, Book.all, :id, :title,{}) %><br></br>
+  <%= f.collection_check_boxes :book_ids, Book.all, :id, :title %><br></br>
 
   <%= f.submit%>
 <% end %>

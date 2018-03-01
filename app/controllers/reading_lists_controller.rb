@@ -1,7 +1,11 @@
 require 'pry'
 class ReadingListsController < ApplicationController
   def index
-    @reading_lists = ReadingList.all
+    if params[:user_id] && @user = User.find_by_id(params[:user_id])
+      @reading_lists = User.find_by_id(params[:user_id]).reading_lists
+    else
+      @reading_lists = ReadingList.all
+    end
   end
 
   def new
@@ -26,7 +30,7 @@ class ReadingListsController < ApplicationController
 
   def update
     @reading_list = ReadingList.find(params[:id])
-    binding.pry
+    #binding.pry
     if @reading_list.update(reading_list_params)
       redirect_to reading_list_params(@reading_list)
     else
@@ -37,7 +41,7 @@ class ReadingListsController < ApplicationController
   private
 
   def reading_list_params
-    params.require(:reading_list).permit(:name, :user_id, :book_ids[])
+    params.require(:reading_list).permit(:name, :user_id, book_ids:[])
   end
 
 end

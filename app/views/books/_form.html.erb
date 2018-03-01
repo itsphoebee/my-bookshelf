@@ -8,6 +8,7 @@
   <% if book.persisted? %>
     <%= f.label :author_id%>:<br>
     <%= f.text_field :author_id, value: Author.find_by(params[:author_id]).name %><br></br>
+
   <% elsif params[:author_id].nil? %>
     <%= f.label :author_id%>:<br>
     <%= f.collection_select :author_id, Author.all, :id, :name %><br></br>
