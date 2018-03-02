@@ -12,4 +12,8 @@ class Book < ApplicationRecord
     self.reading_lists.count
   end
 
+  def self.top
+    self.joins(:list_books).select("books.*, count(list_books.id) as scount").group("books.id").order("scount DESC").first
+  end
+
 end

@@ -10,3 +10,5 @@
 <%= @book.blurb %>
 
 <h4>Affiliated Genre: <%= link_to @book.genre.name, genre_path(@book.genre) %></h4>
+
+<p> <%=@book.title %> is currently on <%= pluralize(@book.list_count, "reading list") %></p>
