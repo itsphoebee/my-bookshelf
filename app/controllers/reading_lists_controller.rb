@@ -1,6 +1,7 @@
 require 'pry'
 class ReadingListsController < ApplicationController
   before_action :find_list, only: [:show, :edit, :update, :destroy]
+
   def index
     if params[:user_id] && @user = User.find_by_id(params[:user_id])
       @reading_lists = User.find_by_id(params[:user_id]).reading_lists
@@ -30,7 +31,8 @@ class ReadingListsController < ApplicationController
 
   def update
     if @reading_list.update(reading_list_params)
-      redirect_to reading_list_params(@reading_list)
+      #binding.pry
+      redirect_to reading_list_path(@reading_list)
     else
       render :edit
     end
