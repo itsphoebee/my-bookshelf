@@ -1,7 +1,7 @@
 <h1><%= @user.email %></h1>
 
 <h2>Profile</h2>
-<p>Joined on: <%=@user.created_at.strftime("%B %d, %Y")%></p>
+<p>Joined on: <%=@user.joined%></p>
 
 <h3> <%=@user.email %>'s <%= link_to 'Reading Lists', user_reading_lists_path(@user)%> </h3>
 <ol>

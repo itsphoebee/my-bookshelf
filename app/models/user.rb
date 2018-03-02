@@ -14,4 +14,8 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
     end
   end
+
+  def joined
+    created_at.strftime("%B %d, %Y")
+  end
 end

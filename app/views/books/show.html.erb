@@ -10,6 +10,7 @@
 <% end %>
 
 <h3> by <%=link_to @book.author.name, author_path(@book.author) %> | Published <%=@book.publication_year%></h3>
+
 <h4>Summary:</h4>
 <%= @book.blurb %>
 

@@ -14,8 +14,9 @@ Filter Books by Author:
   <% @books.each do |b| %>
     <li>
       <div id ="booktitle">
-      <%= link_to b.title, book_path(b) %>
-    </div>
-    by <%= b.author.name %></li>
+        <%= link_to b.title, book_path(b) %>
+      </div>
+      by <%= b.author.name %>
+    </li>
   <% end %>
 </ul>

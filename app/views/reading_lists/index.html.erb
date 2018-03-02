@@ -6,7 +6,7 @@
 
 <%= link_to 'New List', new_user_reading_list_path(current_user), class: "btn btn-primary"%>
 
-<ul>
+<ol>
   <% @reading_lists.each do |list| %>
     <li>
       <div id ="listname">
@@ -17,4 +17,4 @@
       </div>
     </li>
   <% end %>
-</ul>
+</ol>
