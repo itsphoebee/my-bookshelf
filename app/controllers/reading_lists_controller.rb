@@ -1,8 +1,8 @@
 require 'pry'
 class ReadingListsController < ApplicationController
   before_action :find_list, only: [:show, :edit, :update, :destroy]
-  before_action :must_have_rights, only: [:destroy]
-  helper_method :manageable, :owner
+  before_action :must_have_rights, only: [:edit, :update, :destroy]
+  helper_method :manageable
 
   def index
     if params[:user_id] && @user = User.find_by_id(params[:user_id])

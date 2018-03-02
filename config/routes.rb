@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # nested resource for books
   resources :authors do
-    resources :books
+    resources :books, only: [:new, :create]
   end
 
   # nested resource for books

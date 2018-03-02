@@ -14,7 +14,7 @@
   <% end %>
 </ol>
 
-<h4>Affiliated Genres: <% @author.genres.uniq.each do |g| %>
-                          <%= link_to g.name, genre_path(g) %>
+<h4>Affiliated Genres <% @author.genres.uniq.each do |g| %>
+                          | <%= link_to g.name, genre_path(g) %> |
                         <% end %>
 </h4>

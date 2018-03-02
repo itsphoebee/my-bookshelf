@@ -13,7 +13,11 @@ class Book < ApplicationRecord
   end
 
   def self.top
-    self.joins(:list_books).select("books.*, count(list_books.id) as scount").group("books.id").order("scount DESC").first
+    joins(:list_books).select("books.*, count(list_books.id) as listcount").group("books.id").order("listcount DESC").first
+  end
+
+  def self.search(search)
+    where("author_id = ?", search).order("publication_year DESC")
   end
 
 end

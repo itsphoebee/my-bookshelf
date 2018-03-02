@@ -1,14 +1,21 @@
 <h1>All Books</h1>
 <% if current_user.admin? %>
   <%= link_to 'New Book', new_book_path(@book), class: "btn btn-primary"%>
+  <br></br>
 <% end %>
 
-    <ul>
-      <% @books.each do |b| %>
-        <li>
-          <div id ="booktitle">
-          <%= link_to b.title, book_path(b) %>
-        </div>
-        by <%= b.author.name %></li>
-      <% end %>
-    </ul>
+Filter Books by Author:
+<%= form_tag books_path, method: :get do %>
+  <%= select_tag "author", options_from_collection_for_select(Author.all, "id", "name"), include_blank: true %>
+  <%= submit_tag 'Filter' %>
+<% end %>
+
+<ul>
+  <% @books.each do |b| %>
+    <li>
+      <div id ="booktitle">
+      <%= link_to b.title, book_path(b) %>
+    </div>
+    by <%= b.author.name %></li>
+  <% end %>
+</ul>

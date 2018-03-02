@@ -1,4 +1,8 @@
-<h1> <%= @book.title %></h1>
+<h1> <%= @book.title %>
+  <% if Book.top == @book %>
+    - Most Popular Book
+  <% end %>
+</h1>
 
 <% if current_user.admin? %>
   <%= link_to 'Edit Book', edit_book_path(@book), class: "btn btn-primary"%>

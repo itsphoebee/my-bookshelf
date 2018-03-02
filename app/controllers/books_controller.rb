@@ -4,7 +4,11 @@ class BooksController < ApplicationController
   before_action :must_be_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @books = Book.order('title ASC')
+    if params[:author].present?
+      @books = Book.search(params[:author]).order('publication_year DESC')
+    else
+      @books = Book.order('title ASC')
+    end
   end
 
   def new
@@ -13,10 +17,10 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    #binding.pry
     if @book.save
-       redirect_to book_path(@book)
-     else render :new
+      redirect_to book_path(@book)
+    else
+      render :new
     end
   end
 

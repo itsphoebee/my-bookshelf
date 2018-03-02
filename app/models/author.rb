@@ -15,8 +15,4 @@ class Author < ApplicationRecord
     end
   end
 
-  def self.most_hardworking
-    self.joins(:books).select("authors.*, count(books.id) as scount").group("authors.id").order("scount DESC").first
-  end
-  
 end
