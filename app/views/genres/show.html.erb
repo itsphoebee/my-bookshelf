@@ -1,5 +1,9 @@
 <h1> <%= @genre.name %> Novels</h1>
-<%= link_to 'Edit Genre', edit_genre_path(@genre), class: "btn btn-primary"%>
+
+<% if current_user.admin? %>
+  <%= link_to 'Edit Genre', edit_genre_path(@genre), class: "btn btn-primary"%>
+  <%= link_to 'Delete Genre', @genre, :method => :delete, class: "btn btn-primary"%>
+<% end %>
 
 <p> <%= @genre.description %> </p>
 

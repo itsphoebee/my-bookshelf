@@ -1,8 +1,7 @@
 class Genre < ApplicationRecord
   has_many :books
 
-  validates :name, presence:true
+  validates :name, :description, presence:true
   validates :name, uniqueness: true
-  validates :description, presence: true
 
 end

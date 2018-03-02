@@ -1,6 +1,8 @@
 require 'pry'
 class BooksController < ApplicationController
   before_action :find_book, only: [:show, :edit, :update]
+  before_action :must_be_admin, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @books = Book.all
   end
@@ -30,6 +32,11 @@ class BooksController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @book.destroy
+    redirect_to books_path
   end
 
   private

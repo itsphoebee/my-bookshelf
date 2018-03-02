@@ -1,5 +1,6 @@
 class GenresController < ApplicationController
   before_action :find_genre, only: [:show, :edit, :update]
+  before_action :must_be_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @genres = Genre.all
@@ -29,6 +30,11 @@ class GenresController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @genre.destroy
+    redirect_to genres_path
   end
 
   private

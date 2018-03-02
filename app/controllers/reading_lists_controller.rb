@@ -30,8 +30,7 @@ class ReadingListsController < ApplicationController
   end
 
   def update
-    if @reading_list.update(reading_list_params)
-      #binding.pry
+    if @reading_list.update(reading_list_params) 
       redirect_to reading_list_path(@reading_list)
     else
       render :edit

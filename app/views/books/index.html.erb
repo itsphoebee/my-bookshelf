@@ -1,5 +1,7 @@
 <h1>All Books</h1>
-<%= link_to 'New Book', new_book_path(@book), class: "btn btn-primary"%>
+<% if current_user.admin? %>
+  <%= link_to 'New Book', new_book_path(@book), class: "btn btn-primary"%>
+<% end %>
 
     <ul>
       <% @books.each do |b| %>
