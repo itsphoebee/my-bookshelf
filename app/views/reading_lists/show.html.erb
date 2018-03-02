@@ -1,6 +1,9 @@
 <h1> <%= @reading_list.name %> </h1>
-<%= link_to 'Edit List', edit_user_reading_list_path(@reading_list), class: "btn btn-primary"%>
-<%= link_to 'Destroy List', @reading_list, :method => :delete, class: "btn btn-primary"%>
+
+<% if manageable %>
+  <%= link_to 'Edit List', edit_user_reading_list_path(@reading_list), class: "btn btn-primary"%>
+  <%= link_to 'Destroy List', @reading_list, :method => :delete, class: "btn btn-primary"%>
+<% end %>
 
 <ol>
   <% @reading_list.books.each do |b| %>

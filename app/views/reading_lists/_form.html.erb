@@ -14,7 +14,10 @@
   <%= f.label :name %>:<br>
   <%= f.text_field :name %> <br></br>
 
-  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :user_id, value: if !current_user.admin
+                                        current_user.id
+                                      else @reading_list.user.id
+                                      end %>
 
   <%= f.collection_check_boxes :book_ids, Book.all, :id, :title %><br></br>
 

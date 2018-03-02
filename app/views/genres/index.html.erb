@@ -1,5 +1,8 @@
 <h1>All Genres</h1>
-<%= link_to 'New Genre', new_genre_path, class: "btn btn-primary"%>
+
+<% if current_user.admin? %>
+  <%= link_to 'New Genre', new_genre_path, class: "btn btn-primary"%>
+<% end %>
 
 <ul>
   <% @genres.uniq.each do |g| %>

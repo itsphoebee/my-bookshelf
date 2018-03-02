@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   before_action :must_be_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @books = Book.all
+    @books = Book.order('title ASC')
   end
 
   def new

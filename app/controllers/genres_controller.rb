@@ -3,7 +3,7 @@ class GenresController < ApplicationController
   before_action :must_be_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @genres = Genre.all
+    @genres = Genre.order('name ASC')
   end
 
   def new
