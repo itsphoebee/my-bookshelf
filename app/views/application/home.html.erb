@@ -12,3 +12,13 @@
   </ol>
   <p> Create a <%= link_to 'new', new_user_reading_list_path(current_user) %> list!</p>
 <% end %>
+
+<h3>Currently Trending</h3>
+<div id ="trending">
+  <p> Most Popular Books</p>
+  <ol>
+    <% Book.top.first(5).each do |book|%>
+      <li><%= book.title %></li>
+    <% end %>
+  </ol>
+</div>

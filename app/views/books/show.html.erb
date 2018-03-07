@@ -1,5 +1,5 @@
 <h1> <%= @book.title %>
-  <% if Book.top == @book %>
+  <% if Book.top.first == @book %>
     - Most Popular Book
   <% end %>
 </h1>
