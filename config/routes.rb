@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   root 'application#home'
+  get '/books/trending' => 'books#trending'
 
   resources :books
   resources :genres

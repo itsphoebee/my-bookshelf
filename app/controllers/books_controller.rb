@@ -11,6 +11,10 @@ class BooksController < ApplicationController
     end
   end
 
+  def trending
+    @books = Book.top.first(10)
+  end
+
   def new
     @book = Book.new
   end
