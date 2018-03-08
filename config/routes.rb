@@ -4,10 +4,14 @@ Rails.application.routes.draw do
   root 'application#home'
   get '/books/trending' => 'books#trending'
 
-  resources :books
+  resources :books do
+    resources :reviews
+  end
+  
   resources :genres
   resources :authors
   resources :reading_lists, only: [:index, :show, :create, :edit, :update,:destroy]
+  resources :reviews
 
   # nested resource for books
   resources :authors do

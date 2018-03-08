@@ -4,7 +4,7 @@ class Author < ApplicationRecord
 
   validates :name, presence: true
 
-  accepts_nested_attributes_for :books
+#  accepts_nested_attributes_for :books
 
   def books_attributes=(books_attributes)
     books_attributes.values.each do |book_attribute|

@@ -1,0 +1,10 @@
+<%= form_for @review do |f| %>
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+
+  <%= f.hidden_field :user_id, value: current_user.id%>
+  <%= f.hidden_field :book_id, value: params[:book_id]%>
+
+  <%= f.submit %>
+
+<% end %>
