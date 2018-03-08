@@ -16,7 +16,12 @@
 
 <h4>Reviews | <%=link_to 'Add a Review', new_book_review_path(@book)%></h4>
 <% @book.reviews.each do |r| %>
+  <% if r.user == current_user %>
+    <%= link_to 'Edit Review', edit_book_review_path(@book,r)%> |
+    <%= link_to 'Destroy Review', r, :method => :delete %> |
+  <% end %>
   <strong><%=r.user.email %></strong> said <%= r.content %><br></br>
+
 <% end %>
 
 <h4>Affiliated Genre: <%= link_to @book.genre.name, genre_path(@book.genre) %></h4>

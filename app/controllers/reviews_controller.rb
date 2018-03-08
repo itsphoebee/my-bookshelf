@@ -1,11 +1,13 @@
 class ReviewsController < ApplicationController
+  before_action :find_review, only: [:show, :edit, :update, :destroy]
+  before_action :must_have_rights, only: [:edit, :update, :destroy]
 
   def new
     @review = Review.new
   end
 
   def create
-    @review = Review.create(review_params)
+    @review = Review.new(review_params)
     if @review.save
       redirect_to review_path(@review)
     else
@@ -14,10 +16,37 @@ class ReviewsController < ApplicationController
   end
 
   def show
-    @review = Review.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    if @review.update(review_params)
+      redirect_to review_path(@review)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @review.destroy
+    redirect_to book_path(@review.book)
   end
 
   private
+
+  def manageable
+    @review.user == current_user || current_user.admin?
+  end
+
+  def must_have_rights
+    return head(:forbidden) unless manageable
+  end
+
+  def find_review
+    @review = Review.find(params[:id])
+  end
 
   def review_params
     params.require(:review).permit(:content, :user_id, :book_id)
