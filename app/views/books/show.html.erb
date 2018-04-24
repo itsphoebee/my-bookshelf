@@ -18,7 +18,7 @@
 <% @book.reviews.each do |r| %>
   <% if r.user == current_user %>
     <%= link_to 'Edit Review', edit_book_review_path(@book,r)%> |
-    <%= link_to 'Destroy Review', r, :method => :delete %> |
+    <%= link_to 'Destroy Review', [@book, r], :method => :delete %> 
   <% end %>
   <strong><%=r.user.email %></strong> said <%= r.content %><br></br>
 

@@ -7,11 +7,10 @@ Rails.application.routes.draw do
   resources :books do
     resources :reviews
   end
-  
+
   resources :genres
   resources :authors
   resources :reading_lists, only: [:index, :show, :create, :edit, :update,:destroy]
-  resources :reviews
 
   # nested resource for books
   resources :authors do

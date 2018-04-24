@@ -1,4 +1,4 @@
-<h1><%= @review.user.email %>'s Review for <%= link_to @review.book.title, book_path(@review.book) %></h1>
+<h1><%= @review.user.email %>'s Review for <%= link_to @book.title, book_path(@book) %></h1>
 
 <%= @review.content %>
 
