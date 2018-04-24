@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :genres
   resources :authors
-  resources :reading_lists, only: [:index, :show, :create, :edit, :update,:destroy]
+  resources :reading_lists, only: [:index, :show]
 
   # nested resource for books
   resources :authors do
@@ -23,8 +23,8 @@ Rails.application.routes.draw do
   end
 
   # nested resource for reading_lists
-  resources :users, only: [:show] do
-    resources :reading_lists, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :users do
+    resources :reading_lists
   end
 
 

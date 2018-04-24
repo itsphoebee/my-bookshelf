@@ -5,8 +5,8 @@ class ReadingListsController < ApplicationController
   helper_method :manageable
 
   def index
-    if params[:user_id] && @user = User.find_by_id(params[:user_id])
-      @reading_lists = User.find_by_id(params[:user_id]).reading_lists
+    if params[:user_id] && @user = User.find(params[:user_id])
+      @reading_lists = User.find(params[:user_id]).reading_lists
     else
       @reading_lists = ReadingList.all
     end
@@ -19,7 +19,7 @@ class ReadingListsController < ApplicationController
   def create
     @reading_list = ReadingList.new(reading_list_params)
     if @reading_list.save
-       redirect_to reading_list_path(@reading_list)
+       redirect_to user_reading_list_path(current_user, @reading_list)
     else
       render :new
     end
