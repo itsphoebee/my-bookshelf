@@ -1,5 +1,4 @@
 <h1>All Genres</h1>
-
 <% if current_user.admin? %>
   <%= link_to 'New Genre', new_genre_path, class: "btn btn-primary"%>
 <% end %>
@@ -7,9 +6,7 @@
 <ul>
   <% @genres.uniq.each do |g| %>
     <li>
-      <div id ="genrename">
-        <%= link_to g.name, genre_path(g) %>
-      </div>
+      <%= link_to g.name, genre_path(g), class:"list" %>
     </li>
   <% end %>
 </ul>

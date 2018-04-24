@@ -12,11 +12,11 @@ Filter Books by Author:
 
 <ul>
   <% @books.each do |b| %>
+  <div>
     <li>
-      <div id ="booktitle">
-        <%= link_to b.title, book_path(b) %>
-      </div>
+      <%= link_to b.title, book_path(b), id:"booktitle"%><br>
       by <%= b.author.name %>
     </li>
+  </div>
   <% end %>
 </ul>

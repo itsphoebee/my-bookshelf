@@ -2,3 +2,8 @@ html, body {
     height: 100%;
     background-color: #fffaf0;
 }
+
+.list{
+  font-weight :bold;
+  font-size: 19px;
+}
