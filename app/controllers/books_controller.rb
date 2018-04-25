@@ -30,6 +30,7 @@ class BooksController < ApplicationController
 
   def show
     @reviews = @book.reviews.first(2)
+    @review = @book.reviews.new
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @book}

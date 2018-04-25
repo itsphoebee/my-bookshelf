@@ -15,7 +15,7 @@
 <%= @book.blurb %>
 
 <h3>Reviews</h3>
-<%=link_to 'Add a Review', new_book_review_path(@book), class:"addreview"%><br></br>
+
 <div id="reviews">
   <% @reviews.each do |r| %>
     <% if r.user == current_user %>
@@ -31,24 +31,18 @@
   <% end %>
 </div>
 
-<a href="#" class="load-reviews">Load All Reviews</a>
+<div id="newreview" style="display:none">
+  <%= form_for ([@book, @book.reviews.new]) do |f| %>
+    Review<br></br>
+    <%= f.text_area(:content, cols: 40, rows: 10) %>
 
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-    $(".load-reviews").on("click", function(e) {
-      e.preventDefault();
-      var bookId = parseInt($(".bookTitle").attr("data-bookId"));
-      $.get("/books/" + bookId + "/reviews" + ".json", function(data) {
-        var reviews = data
-        var allReviews = ""
-        reviews.forEach(function(review){
-          allReviews += "<strong>" + review.user.email + "</strong>" + " said " + review.content + "<hr>"
-        })
-        $("#reviews").html(allReviews);
-      })
-    });
-  });
-</script>
+    <%= f.hidden_field :user_id, value: current_user.id%>
+    <%= f.hidden_field :book_id, value: params[:book_id]%><br>
+
+    <%= f.submit %>
+
+  <% end %>
+</div>
 
 <script type="text/javascript" charset="utf-8">
 $(function() {
@@ -68,6 +62,33 @@ $(function() {
     });
   });
 });
+
+$(function() {
+  $(".load-reviews").on("click", function(e) {
+    e.preventDefault();
+    var bookId = parseInt($(".bookTitle").attr("data-bookId"));
+    $.get("/books/" + bookId + "/reviews" + ".json", function(data) {
+      var reviews = data
+      var allReviews = ""
+      reviews.forEach(function(review){
+        allReviews += "<strong>" + review.user.email + "</strong>" + " said " + review.content + "<hr>"
+      })
+      $("#reviews").html(allReviews);
+    })
+  });
+});
+
+  $(function() {
+    $(".add-review").on("click", function(e) {
+      e.preventDefault();
+      var x = document.getElementById("newreview")
+      x.style.display = "block"
+    });
+  });
+
 </script>
+
+<a href="#" class="load-reviews">Load All Reviews</a> |
+<%=link_to 'Add a Review', new_book_review_path(@book), class:"add-review"%><br></br>
 
 <p> <%=@book.title %> is currently on <%= pluralize(@book.list_count, "reading list") %></p>

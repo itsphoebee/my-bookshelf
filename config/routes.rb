@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   get '/books/trending' => 'books#trending'
 
   resources :genres
-  resources :authors
   resources :reading_lists, only: [:index, :show]
 
   # nested resource for books

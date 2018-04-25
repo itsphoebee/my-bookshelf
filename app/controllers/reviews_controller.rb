@@ -4,7 +4,6 @@ class ReviewsController < ApplicationController
   before_action :must_have_rights, only: [:edit, :update, :destroy]
 
   def index
-    @book = find_book
     @reviews = @book.reviews
     respond_to do |format|
       format.html { render :index }
@@ -13,15 +12,15 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @review = Review.new
+    @review = @book.reviews.new
   end
 
   def create
-    @review = Review.new(review_params)
+    @review = @book.reviews.build(review_params)
     if @review.save
       redirect_to book_path(@book)
     else
-      render :new
+      render "books/show"
     end
   end
 
