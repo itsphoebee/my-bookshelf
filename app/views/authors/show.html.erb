@@ -7,17 +7,19 @@
 <% end %>
 
 <h3> Published Books </h3>
-<div id="books">
-  <ol>
-    <% @author.books.each do |b| %>
-      <li><%= link_to b.title, book_path(b) %> | <%=b.publication_year%></li>
-    <% end %>
-  </ol>
+<ol>
+  <div class="books">
+  <% @author.books.each do |b| %>
+    <li><%= link_to b.title, book_path(b) %> | <%=b.publication_year%></li>
+  <% end %>
+  </div>
+</ol>
+<h4>Affiliated Genres</h4>
+<div class="affiliatedGenres">
+  <% @author.genres.uniq.each do |g| %>
+    <%= link_to g.name, genre_path(g) %>
+  <% end %> | <br></br>
 </div>
-<h4>Affiliated Genres <% @author.genres.uniq.each do |g| %>
-                          | <%= link_to g.name, genre_path(g) %>
-                        <% end %> |
-</h4>
 <a href="#" class="js-previous" data-id="20">Previous Author</a>
 | <a href="#" class="js-next" data-id="<%=@author.id%>">Next Author</a> <br></br>
 
@@ -27,10 +29,25 @@ $(function () {
     e.preventDefault();
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;
     $.get("/authors/" + nextId + ".json", function(data) {
-      debugger
       $(".authorName").text(data["name"]);
 
-      // re-set the id to current on the link
+      var books = data["books"]
+      var bookList = ""
+      books.forEach(function(book){
+        bookList += "<li>" + `<a href="/books/${book.id}">` + book.title+ `</a>` + " | " + book.publication_year + "</li>"
+      })
+      $(".books").html(bookList);
+
+      var genres = data["genres"]
+      var uniq = new Set(genres.map(e => JSON.stringify(e)));
+      var uniqGenres = Array.from(uniq).map(e => JSON.parse(e));
+      var genreList = ""
+      uniqGenres.forEach(function(genre){
+        genreList += `<a href="/genres/${genre.id}">` + genre.name+ `</a>` + " |"
+      })
+      genreList += "<br></br>"
+      $(".affiliatedGenres").html(genreList);
+      // reset the id to current on the link
       $(".js-next").attr("data-id", data["id"]);
 
     });
@@ -40,10 +57,30 @@ $(function () {
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
-  $(".js-previous").on("click", function() {
+  $(".js-previous").on("click", function(e) {
+    e.preventDefault();
     var lastId = parseInt($(".js-next").attr("data-id")) - 1;
     $.get("/authors/" + lastId + ".json", function(data) {
       $(".authorName").text(data["name"]);
+
+      var books = data["books"]
+      var bookList = ""
+      books.forEach(function(book){
+        var test = JSON.stringify(book)
+        bookList += "<li>" + `<a href="/books/${book.id}">` + book.title+ `</a>` + " | " + book.publication_year + "</li>"
+      })
+      $(".books").html(bookList);
+
+      var genres = data["genres"]
+      var uniq = new Set(genres.map(e => JSON.stringify(e)));
+      var uniqGenres = Array.from(uniq).map(e => JSON.parse(e));
+      var genreList = ""
+      uniqGenres.forEach(function(genre){
+        genreList += `<a href="/genres/${genre.id}">` + genre.name+ `</a>` + " |"
+      })
+      genreList += "<br></br>"
+
+      // reset the id to current on the link
       $(".js-last").attr("data-id", data["id"]);
     });
   });
