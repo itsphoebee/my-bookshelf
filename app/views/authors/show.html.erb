@@ -1,4 +1,4 @@
-<h1> <%= @author.name%></h1>
+<h1 class="authorName"> <%= @author.name%></h1>
 
 <% if current_user.admin? %>
   <%= link_to 'Edit Author', edit_author_path(@author), class: "btn btn-primary"%>
@@ -6,15 +6,46 @@
   <%= link_to 'Add Books', new_author_book_path(@author), class: "btn btn-primary"%>
 <% end %>
 
-<h3> Books by <%= @author.name%></h3>
-
-<ol>
-  <% @author.books.each do |b| %>
-    <li><%= link_to b.title, book_path(b) %> | <%=b.publication_year%></li>
-  <% end %>
-</ol>
-
+<h3> Published Books </h3>
+<div id="books">
+  <ol>
+    <% @author.books.each do |b| %>
+      <li><%= link_to b.title, book_path(b) %> | <%=b.publication_year%></li>
+    <% end %>
+  </ol>
+</div>
 <h4>Affiliated Genres <% @author.genres.uniq.each do |g| %>
-                          | <%= link_to g.name, genre_path(g) %> |
-                        <% end %>
+                          | <%= link_to g.name, genre_path(g) %>
+                        <% end %> |
 </h4>
+<a href="#" class="js-previous" data-id="20">Previous Author</a>
+| <a href="#" class="js-next" data-id="<%=@author.id%>">Next Author</a> <br></br>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-next").on("click", function(e) {
+    e.preventDefault();
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    $.get("/authors/" + nextId + ".json", function(data) {
+      debugger
+      $(".authorName").text(data["name"]);
+
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", data["id"]);
+
+    });
+  });
+});
+</script>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-previous").on("click", function() {
+    var lastId = parseInt($(".js-next").attr("data-id")) - 1;
+    $.get("/authors/" + lastId + ".json", function(data) {
+      $(".authorName").text(data["name"]);
+      $(".js-last").attr("data-id", data["id"]);
+    });
+  });
+});
+</script>

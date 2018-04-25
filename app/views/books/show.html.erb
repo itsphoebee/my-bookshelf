@@ -1,4 +1,4 @@
-<h1> <%= @book.title %>
+<h1 class="bookTitle"> <%= @book.title %>
   <% if Book.top.first == @book %>
     - Most Popular Book
   <% end %>
@@ -9,21 +9,21 @@
   <%= link_to 'Delete Book', @book, :method => :delete, class: "btn btn-primary"%>
 <% end %>
 
-<h3> by <%=link_to @book.author.name, author_path(@book.author) %> | Published <%=@book.publication_year%></h3>
-
-<h4>Summary:</h4>
+<h2> by <%=link_to @book.author.name, author_path(@book.author) %> | Published <%=@book.publication_year%></h2>
+<h3>Affiliated Genre: <%= link_to @book.genre.name, genre_path(@book.genre) %></h3>
+<h3>Summary:</h3>
 <%= @book.blurb %>
 
-<h4>Reviews | <%=link_to 'Add a Review', new_book_review_path(@book)%></h4>
-<% @book.reviews.each do |r| %>
+<h3>Reviews</h3>
+<a href="#">Load Reviews</a> | <%=link_to 'Add a Review', new_book_review_path(@book), id:"addreview"%><br></br>
+<div id="reviews">
+  <% @book.reviews.each do |r| %>
   <% if r.user == current_user %>
     <%= link_to 'Edit Review', edit_book_review_path(@book,r)%> |
-    <%= link_to 'Destroy Review', [@book, r], :method => :delete %> 
+    <%= link_to 'Destroy Review', [@book, r], :method => :delete %>
   <% end %>
-  <strong><%=r.user.email %></strong> said <%= r.content %><br></br>
-
+  <strong><%=r.user.email %></strong> said <%= truncate(r.content) %><br></br>
+</div>
 <% end %>
-
-<h4>Affiliated Genre: <%= link_to @book.genre.name, genre_path(@book.genre) %></h4>
 
 <p> <%=@book.title %> is currently on <%= pluralize(@book.list_count, "reading list") %></p>
