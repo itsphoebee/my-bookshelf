@@ -38,13 +38,11 @@
     $(".load-reviews").on("click", function(e) {
       e.preventDefault();
       var bookId = parseInt($(".bookTitle").attr("data-bookId"));
-      $.get("/books/" + bookId + "reviews" + ".json", function(data) {
-        debugger
-        var reviews = data.reviews;
+      $.get("/books/" + bookId + "/reviews" + ".json", function(data) {
+        var reviews = data
         var allReviews = ""
         reviews.forEach(function(review){
-          debugger
-          allReviews += review.id + " said " + review.content + "<hr>"
+          allReviews += "<strong>" + review.user.email + "</strong>" + " said " + review.content + "<hr>"
         })
         $("#reviews").html(allReviews);
       })
