@@ -3,6 +3,10 @@ class ReviewsController < ApplicationController
   before_action :find_book
   before_action :must_have_rights, only: [:edit, :update, :destroy]
 
+  def index
+    @reviews = find_book.reviews
+  end
+
   def new
     @review = Review.new
   end
@@ -17,6 +21,10 @@ class ReviewsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @review}
+    end
   end
 
   def edit

@@ -1,4 +1,4 @@
-<h1 class="bookTitle" data-bookId="<%=@book.id%>" >" <%= @book.title %>
+<h1 class="bookTitle" data-bookId="<%=@book.id%>"> <%= @book.title %>
   <% if Book.top.first == @book %>
     - Most Popular Book
   <% end %>
@@ -15,7 +15,7 @@
 <%= @book.blurb %>
 
 <h3>Reviews</h3>
-<a href="#" class:"loadreviews">Load All Reviews</a> | <%=link_to 'Add a Review', new_book_review_path(@book), class:"addreview"%><br></br>
+<%=link_to 'Add a Review', new_book_review_path(@book), class:"addreview"%><br></br>
 <div id="reviews">
   <% @reviews.each do |r| %>
     <% if r.user == current_user %>
@@ -30,6 +30,27 @@
     <hr>
   <% end %>
 </div>
+
+<a href="#" class="load-reviews">Load All Reviews</a>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $(".load-reviews").on("click", function(e) {
+      e.preventDefault();
+      var bookId = parseInt($(".bookTitle").attr("data-bookId"));
+      $.get("/books/" + bookId + "reviews" + ".json", function(data) {
+        debugger
+        var reviews = data.reviews;
+        var allReviews = ""
+        reviews.forEach(function(review){
+          debugger
+          allReviews += review.id + " said " + review.content + "<hr>"
+        })
+        $("#reviews").html(allReviews);
+      })
+    });
+  });
+</script>
 
 <script type="text/javascript" charset="utf-8">
 $(function() {
