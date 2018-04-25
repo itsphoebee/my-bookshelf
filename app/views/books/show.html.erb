@@ -1,4 +1,4 @@
-<h1 class="bookTitle"> <%= @book.title %>
+<h1 class="bookTitle" data-bookId="<%=@book.id%>" >" <%= @book.title %>
   <% if Book.top.first == @book %>
     - Most Popular Book
   <% end %>
@@ -15,15 +15,40 @@
 <%= @book.blurb %>
 
 <h3>Reviews</h3>
-<a href="#">Load Reviews</a> | <%=link_to 'Add a Review', new_book_review_path(@book), id:"addreview"%><br></br>
+<a href="#" class:"loadreviews">Load All Reviews</a> | <%=link_to 'Add a Review', new_book_review_path(@book), class:"addreview"%><br></br>
 <div id="reviews">
-  <% @book.reviews.each do |r| %>
-  <% if r.user == current_user %>
-    <%= link_to 'Edit Review', edit_book_review_path(@book,r)%> |
-    <%= link_to 'Destroy Review', [@book, r], :method => :delete %>
+  <% @reviews.each do |r| %>
+    <% if r.user == current_user %>
+      <%= link_to 'Edit Review', edit_book_review_path(@book,r)%> |
+      <%= link_to 'Destroy Review', [@book, r], :method => :delete %>
+    <% end %>
+    <strong><%=r.user.email %></strong> said
+    <span id="content-<%=r.id%>">
+      <%= truncate(r.content) %>
+      <a href="#" class="js-more" data-id="<%= r.id %>">Show More</a><br></br>
+    </span>
+    <hr>
   <% end %>
-  <strong><%=r.user.email %></strong> said <%= truncate(r.content) %><br></br>
 </div>
-<% end %>
+
+<script type="text/javascript" charset="utf-8">
+$(function() {
+  $(".js-more").on("click", function(e) {
+    e.preventDefault();
+    var bookId = parseInt($(".bookTitle").attr("data-bookId"));
+    var reviewId = parseInt($(this).attr("data-id"))
+    $.get("/books/" + bookId + ".json", function(data) {
+      var reviews = data.reviews;
+      var reviewContent = ""
+      reviews.forEach(function(review){
+        if (review.id === reviewId){
+          reviewContent += review.content
+        }
+      })
+      $("#content-" + reviewId).html(reviewContent);
+    });
+  });
+});
+</script>
 
 <p> <%=@book.title %> is currently on <%= pluralize(@book.list_count, "reading list") %></p>
