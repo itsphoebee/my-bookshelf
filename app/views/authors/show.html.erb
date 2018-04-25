@@ -20,7 +20,7 @@
     <%= link_to g.name, genre_path(g) %>
   <% end %> | <br></br>
 </div>
-<a href="#" class="js-previous" data-id="20">Previous Author</a>
+<a href="#" class="js-previous" data-id="<%=@author.id%>">Previous Author</a>
 | <a href="#" class="js-next" data-id="<%=@author.id%>">Next Author</a> <br></br>
 
 <script type="text/javascript" charset="utf-8">
@@ -47,8 +47,10 @@ $(function () {
       })
       genreList += "<br></br>"
       $(".affiliatedGenres").html(genreList);
+      
       // reset the id to current on the link
       $(".js-next").attr("data-id", data["id"]);
+      $(".js-previous").attr("data-id", data["id"]);
 
     });
   });
@@ -79,9 +81,11 @@ $(function () {
         genreList += `<a href="/genres/${genre.id}">` + genre.name+ `</a>` + " |"
       })
       genreList += "<br></br>"
+      $(".affiliatedGenres").html(genreList);
 
       // reset the id to current on the link
-      $(".js-last").attr("data-id", data["id"]);
+      $(".js-next").attr("data-id", data["id"]);
+      $(".js-previous").attr("data-id", data["id"]);
     });
   });
 });
