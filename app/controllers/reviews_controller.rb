@@ -18,9 +18,9 @@ class ReviewsController < ApplicationController
   def create
     @review = @book.reviews.build(review_params)
     if @review.save
-      redirect_to book_path(@book)
+      render 'reviews/show',:layout => false
     else
-      render "books/show"
+      render :new
     end
   end
 

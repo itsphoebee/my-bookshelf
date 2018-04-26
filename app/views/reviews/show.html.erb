@@ -1,5 +1,1 @@
-<h1><%= @review.user.email %>'s Review for <%= link_to @book.title, book_path(@book) %></h1>
-
-<%= @review.content %>
-
-<br></br>
+<strong><%= @review.user.email %></strong> said <%= @review.content %>
