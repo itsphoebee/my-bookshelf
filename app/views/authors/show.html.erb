@@ -17,8 +17,8 @@
 <h4>Affiliated Genres</h4>
 <div class="affiliatedGenres">
   <% @author.genres.uniq.each do |g| %>
-    <%= link_to g.name, genre_path(g) %>
-  <% end %> | <br></br>
+    <%= link_to g.name, genre_path(g) %> |
+  <% end %> <br></br>
 </div>
 <a href="#" class="js-previous" data-id="<%=@author.id%>">Previous Author</a>
 | <a href="#" class="js-next" data-id="<%=@author.id%>">Next Author</a> <br></br>
@@ -43,7 +43,7 @@ $(function () {
       var uniqGenres = Array.from(uniq).map(e => JSON.parse(e));
       var genreList = ""
       uniqGenres.forEach(function(genre){
-        genreList += `<a href="/genres/${genre.id}">` + genre.name+ `</a>` + " |"
+        genreList += `<a href="/genres/${genre.id}">` + genre.name+ `</a>` + " | "
       })
       genreList += "<br></br>"
       $(".affiliatedGenres").html(genreList);
@@ -55,9 +55,7 @@ $(function () {
     });
   });
 });
-</script>
 
-<script type="text/javascript" charset="utf-8">
 $(function () {
   $(".js-previous").on("click", function(e) {
     e.preventDefault();
@@ -78,7 +76,7 @@ $(function () {
       var uniqGenres = Array.from(uniq).map(e => JSON.parse(e));
       var genreList = ""
       uniqGenres.forEach(function(genre){
-        genreList += `<a href="/genres/${genre.id}">` + genre.name+ `</a>` + " |"
+        genreList += `<a href="/genres/${genre.id}">` + genre.name+ `</a>` + " | "
       })
       genreList += "<br></br>"
       $(".affiliatedGenres").html(genreList);
