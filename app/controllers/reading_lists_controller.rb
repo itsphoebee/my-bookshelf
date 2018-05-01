@@ -5,19 +5,19 @@ class ReadingListsController < ApplicationController
   helper_method :manageable
 
   def index
-    if params[:user_id] && @user = User.find(params[:user_id])
-      @reading_lists = User.find(params[:user_id]).reading_lists
+    if params[:user_id] && find_user
+      @reading_lists = find_user.reading_lists
     else
       @reading_lists = ReadingList.all
     end
   end
 
   def new
-    @reading_list = ReadingList.new
+    @reading_list = find_user.reading_lists.new
   end
 
   def create
-    @reading_list = ReadingList.new(reading_list_params)
+    @reading_list = find_user.reading_lists.build(reading_list_params)
     if @reading_list.save
        redirect_to user_reading_list_path(current_user, @reading_list)
     else
@@ -52,6 +52,10 @@ class ReadingListsController < ApplicationController
 
   def must_have_rights
     return head(:forbidden) unless manageable
+  end
+
+  def find_user
+    @user = User.find(params[:user_id])
   end
 
   def find_list

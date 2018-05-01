@@ -20,7 +20,7 @@
   <% @reviews.each do |r| %>
     <% if r.user == current_user %>
       <%= link_to 'Edit Review', edit_book_review_path(@book,r)%> |
-      <%= link_to 'Destroy Review', [@book, r], :method => :delete %>
+      <%= link_to 'Destroy Review', [@book, r], :method => :delete %> | 
     <% end %>
     <strong><%=r.user.email %></strong> said
     <span id="content-<%=r.id%>">
@@ -32,15 +32,7 @@
 </div>
 
 <div id="newreview" style="display:none">
-  <%= form_for ([@book, @review]),html: {id: :review_form } do |f| %>
-    Review<br></br>
-    <%= f.text_area(:content, cols: 40, rows: 10) %>
-
-    <%= f.hidden_field :user_id, value: current_user.id%>
-    <%= f.hidden_field :book_id, value: params[:book_id]%><br>
-
-    <%= f.submit %>
-  <% end %>
+  <%= render partial: "reviews/form"%>
 </div>
 
 <script type="text/javascript" charset="utf-8">
