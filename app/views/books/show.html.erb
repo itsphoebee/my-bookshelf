@@ -20,14 +20,13 @@
   <% @reviews.each do |r| %>
     <% if r.user == current_user %>
       <%= link_to 'Edit Review', edit_book_review_path(@book,r)%> |
-      <%= link_to 'Destroy Review', [@book, r], :method => :delete %> | 
+      <%= link_to 'Destroy Review', [@book, r], :method => :delete %> |
     <% end %>
-    <strong><%=r.user.email %></strong> said
     <span id="content-<%=r.id%>">
-      <%= truncate(r.content) %>
+      <strong><%=r.user.email %></strong> said <%= truncate(r.content) %>
       <a href="#" class="js-more" data-id="<%= r.id %>">Show More</a><br></br>
+      <hr>
     </span>
-    <hr>
   <% end %>
 </div>
 
@@ -36,6 +35,17 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+class Review {
+  constructor(review){
+    this.id = review.id
+    this.content = review.content
+    this.user = review.user.email
+  }
+}
+Review.prototype.renderReviewContent = function(){
+  return `<strong> ${this.user} </strong> said ${this.content} <hr>`
+}
+
 $(function() {
   $(".js-more").on("click", function(e) {
     e.preventDefault();
@@ -43,13 +53,12 @@ $(function() {
     var reviewId = parseInt($(this).attr("data-id"))
     $.get("/books/" + bookId + ".json", function(data) {
       var reviews = data.reviews;
-      var reviewContent = ""
       reviews.forEach(function(review){
         if (review.id === reviewId){
-          reviewContent += review.content
+          currentReview = new Review(review)
         }
       })
-      $("#content-" + reviewId).html(reviewContent);
+      $("#content-" + reviewId).html(currentReview.renderReviewContent());
     });
   });
 });
@@ -62,7 +71,8 @@ $(function() {
       var reviews = data
       var allReviews = ""
       reviews.forEach(function(review){
-        allReviews += "<strong>" + review.user.email + "</strong>" + " said " + review.content + "<hr>"
+        currentReview = new Review(review)
+        allReviews += currentReview.renderReviewContent()
       })
       $("#reviews").html(allReviews);
     })
@@ -83,6 +93,8 @@ $(function() {
       url = this.action
       $.post(url,$(this).serialize())
       .done(function(response){
+        newReview = new Review(response)
+        debugger
         $("#reviews").append(response).append("<hr>")
         var x = document.getElementById("newreview")
         $("#review_content").val("")
