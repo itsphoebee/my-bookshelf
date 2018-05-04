@@ -46,62 +46,78 @@ Review.prototype.renderReviewContent = function(){
   return `<strong> ${this.user} </strong> said ${this.content} <hr>`
 }
 
-$(function() {
-  $(".js-more").on("click", function(e) {
+$(function attachListeners() {
+  $(".add-review").on("click", function(e) {
     e.preventDefault();
-    var bookId = parseInt($(".bookTitle").attr("data-bookId"));
-    var reviewId = parseInt($(this).attr("data-id"))
-    $.get("/books/" + bookId + ".json", function(data) {
-      var reviews = data.reviews;
-      reviews.forEach(function(review){
-        if (review.id === reviewId){
-          currentReview = new Review(review)
-        }
-      })
-      $("#content-" + reviewId).html(currentReview.renderReviewContent());
-    });
+    getForm();
   });
-});
 
-$(function() {
   $(".load-reviews").on("click", function(e) {
     e.preventDefault();
-    var bookId = parseInt($(".bookTitle").attr("data-bookId"));
-    $.get("/books/" + bookId + "/reviews" + ".json", function(data) {
-      var reviews = data
-      var allReviews = ""
-      reviews.forEach(function(review){
-        currentReview = new Review(review)
-        allReviews += currentReview.renderReviewContent()
-      })
-      $("#reviews").html(allReviews);
-    })
-  });
-});
-
-  $(function() {
-    $(".add-review").on("click", function(e) {
-      e.preventDefault();
-      var x = document.getElementById("newreview")
-      x.style.display = "block"
-    });
+    loadAllReviews()
   });
 
-  $(function(){
-    $('#review_form').on("submit", function(e){
-      e.preventDefault();
-      url = this.action
-      $.post(url,$(this).serialize())
-      .done(function(response){
-        // formatting is off - WIP
-        $("#reviews").append(response).append("<hr>")
-        var x = document.getElementById("newreview")
-        $("#review_content").val("")
-        x.style.display = "none"
-        $('input[type="submit"]').prop('disabled', false);
-      })
+  $('#review_form').on("submit", function(e){
+    e.preventDefault();
+    submitReview(this)
+  });
+
+// **** Function breaks
+  $(".js-more").on("click", function(e) {
+    e.preventDefault();
+    showReview(this);
+  });
+})
+
+function getForm() {
+  var x = document.getElementById("newreview")
+  x.style.display = "block"
+}
+
+function loadAllReviews() {
+  var bookId = parseInt($(".bookTitle").attr("data-bookId"));
+  $.get("/books/" + bookId + "/reviews" + ".json", function(data) {
+    var reviews = data
+    var allReviews = ""
+    reviews.forEach(function(review){
+      currentReview = new Review(review)
+      allReviews += currentReview.renderReviewContent()
     })
+    $("#reviews").html(allReviews);
   })
+};
+
+function showReview() {
+  var bookId = parseInt($(".bookTitle").attr("data-bookId"));
+  var reviewId = parseInt($(this).attr("data-id"))
+  $.get("/books/" + bookId + ".json", function(data) {
+    var reviews = data.reviews;
+    reviews.forEach(function(review){
+      if (review.id === reviewId){
+        currentReview = new Review(review)
+      }
+    })
+    $("#content-" + reviewId).html(currentReview.renderReviewContent());
+  });
+}
+
+function submitReview(review){
+  url = review.action
+  $.post(url,$(review).serialize())
+  .done(function(response){
+    // formatting is off - WIP
+    debugger
+    $("#reviews").append(response).append("<hr>")
+    clearForm();
+  })
+}
+
+function clearForm(){
+  var x = document.getElementById("newreview")
+  $("#review_content").val("")
+  x.style.display = "none"
+  $('input[type="submit"]').prop('disabled', false);
+}
 </script>
 
 <a href="#" class="load-reviews">Load All Reviews</a> |
