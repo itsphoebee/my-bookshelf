@@ -15,7 +15,6 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
-
-//= books
 //= authors
+//= books
 //= reviews

@@ -1,8 +1,8 @@
 $(document).on('turbolinks:load', () => {
-  attachListeners()
+  attachEventListeners()
 })
 
-function attachListeners() {
+function attachEventListeners() {
   $(".add-review").on("click", function(e) {
     e.preventDefault();
     getForm();
@@ -60,13 +60,6 @@ function submitReview(review){
   url = review.action
   $.post(url,$(review).serialize())
   .done(function(response){
-    debugger
-    // formatting is off - WIP
-    // q about adding edit/delete review/ not so fluid
-    // if (response.split(" said")[0] === $("#user").text()){
-    //   const rights = `<a href="#">Edit Review</a> | <a href="#">Destroy Review</a> | `
-    //   $("#reviews").append(rights)
-    // }
     $("#reviews").append(response).append("<hr>")
     clearForm();
   })
