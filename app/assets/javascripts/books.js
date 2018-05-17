@@ -30,12 +30,11 @@ function getForm() {
 }
 
 function loadAllReviews() {
-  var bookId = parseInt($(".bookTitle").attr("data-bookId"));
+  const bookId = parseInt($(".bookTitle").attr("data-bookId"));
   $.get("/books/" + bookId + "/reviews" + ".json", function(data) {
-    var reviews = data
     var allReviews = ""
-    reviews.forEach(function(review){
-      currentReview = new Review(review)
+    data.forEach(function(review){
+      var currentReview = new Review(review)
       allReviews += currentReview.renderReviewContent()
     })
     $("#reviews").html(allReviews);
@@ -57,10 +56,12 @@ function showReview(review) {
 }
 
 function submitReview(review){
-  url = review.action
+  var url = review.action
   $.post(url,$(review).serialize())
   .done(function(response){
-    $("#reviews").append(response).append("<hr>")
+    var newReview = new Review(response)
+    var content = newReview.renderReviewContent()
+    $("#reviews").append(content).append("<hr>")
     clearForm();
   })
 }

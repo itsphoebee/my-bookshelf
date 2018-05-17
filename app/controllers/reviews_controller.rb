@@ -18,7 +18,7 @@ class ReviewsController < ApplicationController
   def create
     @review = @book.reviews.build(review_params)
     if @review.save
-      render 'reviews/show',:layout => false
+      render json: @review
     else
       render :new
     end
