@@ -1,5 +1,0 @@
-<h1><%=@book.title %></h1>
-
-<% @reviews.each do |r| %>
-  <strong><%= r.user.email %></strong> said <%= r.content %> <hr>
-<% end %>

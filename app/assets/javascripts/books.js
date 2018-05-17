@@ -61,7 +61,7 @@ function submitReview(review){
   .done(function(response){
     var newReview = new Review(response)
     var content = newReview.renderReviewContent()
-    $("#reviews").append(content).append("<hr>")
+    $("#reviews").append(content)
     clearForm();
   })
 }
