@@ -25,7 +25,7 @@ function previousAuthor () {
 }
 
 function getInfo(id){
-  $.get("/authors/" + id + ".json", function(data) {
+  $.get(`/authors/${id}.json`, function(data) {
     $(".authorName").text(data["name"]);
 
     // find all books by specific author and add to view

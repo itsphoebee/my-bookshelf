@@ -44,7 +44,7 @@ function loadAllReviews() {
 function showReview(review) {
   var bookId = parseInt($(".bookTitle").attr("data-bookId"));
   var reviewId = parseInt($(review).attr("data-id"))
-  $.get("/books/" + bookId + ".json", function(data) {
+  $.get(`/books/${bookId}.json`, function(data) {
     var reviews = data.reviews;
     reviews.forEach(function(review){
       if (review.id === reviewId){
